@@ -110,10 +110,10 @@
 			
 			if(	
 				self.options.numbersOnly && 
-				event.which != 8 && 
+				event.which != 8 &&
+				event.which != 16 && 
 				isNaN(String.fromCharCode(event.which))
-				){
-
+				){				
 
 				this.value = ''
 
@@ -124,9 +124,7 @@
 
 			/* Check if tab + shift is pressed */
 
-			var focusPrevious = (event.shiftKey || event.which == 16) ? true: false;
-
-			if(focusPrevious) return         
+			if(event.shiftKey || event.which == 16)  return         
 
 
 			/* Continue */
