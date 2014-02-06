@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Passcode input</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css">
+    <link rel="stylesheet" href="passcodeinput.css">
+</head>
+<body style="text-align: center;">
+
+    <h2>Enter passcode</h2>
+
+    <div class="passcode">
+        <input type="text" class="text-input input-passcode" maxlength="1" autofocus>
+        <input type="text" class="text-input input-passcode" maxlength="1" >
+        <input type="text" class="text-input input-passcode" maxlength="1" >
+        <input type="text" class="text-input input-passcode" maxlength="1" >
+        <input type="text" class="text-input input-passcode" maxlength="1" >
+        <input type="text" class="text-input input-passcode" maxlength="1" >
+    </div>
+    
+
+    <h4>Enter passcode to view this. Hint: 456112</h4>
+
+    <div class="passCodeAnswer" style="display: none;">
+    
+        <h3>YAY !!</h3>        
+
+        <p>You have entered the correct passcode</p>
+
+        
+    </div>
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="jquery.passcodeinput.js"></script>
+
+    <script>
+
+        $(function(){
+
+            $('.passcode').passcodeInput({
+
+                onComplete: function(value){
+                    
+                    if(value == 456112){
+
+                        $('.passCodeAnswer').show();
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

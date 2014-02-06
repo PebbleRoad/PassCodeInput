@@ -1,0 +1,39 @@
+/**
+ * Passcode Inputs
+ */
+
+.passcode{
+
+    padding: 2em;
+    text-align: center;
+
+    /* Input */
+
+    input{
+        display: inline-block;
+        border: 2px #ddd solid;
+        border-radius: 5px;        
+        text-align: center;
+        margin: 0 5px;
+
+        /* Dimensions */
+        width: 50px;
+        height: 60px;
+
+        /* Font-size */
+
+        font-size: 40px;
+    }
+}
+
+
+
+/**
+ * Remove Webkit Spin Button
+ */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
