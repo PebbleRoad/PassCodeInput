@@ -9,7 +9,9 @@
 
 	var defaults = {
 		
-		onComplete : null,		
+		onComplete : null,
+		onChange: null,
+		numbersOnly : false
 
 	};
 
@@ -49,28 +51,43 @@
 		
 		this.$inputs.on('paste', function(event){
 
-			var clipBoardValues = window.clipboardData? 
-						window.clipboardData.getData('Text').split('') : 
-						event.originalEvent.clipboardData.getData('text/plain').split('')
+			var clipBoardValue = window.clipboardData? 
+						window.clipboardData.getData('Text') : 
+						event.originalEvent.clipboardData.getData('text/plain'),
+				clipBoardArray = clipBoardValue.split('')
 
+			/**
+			 * Numbers only
+			 */
+			
+			if(self.options.numbersOnly && isNaN(clipBoardValue)){
+				
+				event.preventDefault()
+
+				return
+			}
 			
 			/* Loop through inputs */
 
 			self.$inputs.each(function(index, el){
 				
-				this.value = clipBoardValues[index]
+				this.value = clipBoardArray[index]
 
 			});
 
 
 			/* Trigger onPaste Handler */
 
-			self.$el.trigger('passcodeInput.paste', [clipBoardValues.join('')])
+			self.$el.trigger('passcodeInput.paste', self.getvalue())
 
+
+			/* Trigger Change event */
+
+			$.isFunction(self.options.onChange) && self.options.onChange.call(self, self.getvalue())
 
 			/* Trigger onComplete */
 			
-			self.options.onComplete.call(self, self.getvalue())
+			$.isFunction(self.options.onComplete) && self.options.onComplete.call(self, self.getvalue())
 
 			/* Prevent the default action */
 
@@ -86,9 +103,33 @@
 		
 		.on('keyup', function(event){
 
+
+			/**
+			 * Numbers Only
+			 */
+			
+			if(	
+				self.options.numbersOnly && 
+				event.which != 8 && 
+				isNaN(String.fromCharCode(event.which))
+				){
+
+
+				this.value = ''
+
+				event.preventDefault()
+
+				return 
+			}
+
+			/* Check if tab + shift is pressed */
+
 			var focusPrevious = (event.shiftKey || event.which == 16) ? true: false;
 
 			if(focusPrevious) return         
+
+
+			/* Continue */
 			
 			var $this = $(this),
 				$next = $this.next(),
@@ -96,10 +137,10 @@
 
 
 			/**
-			 * Trigger Passcode enter
+			 * Trigger Passcode change
 			 */
 			
-			self.$el.trigger('passcodeInput.paste', self.getvalue())
+			$.isFunction(self.options.onChange) && self.options.onChange.call(self, self.getvalue())
 
 
 			/**
@@ -112,7 +153,7 @@
 				 * On Complete Callback
 				 */
 				
-				self.options.onComplete.call(self, self.getvalue())
+				$.isFunction(self.options.onComplete) && self.options.onComplete.call(self, self.getvalue())
 
 				return
 			}

@@ -3,6 +3,11 @@
 ## Methods
 
 1. onComplete: Called when all passcodes are entered
+2. onChange: Called everytime the passcode changes
+
+## Options
+
+1. numbersOnly: Restrict input to numbers only
 
 
 ## Events

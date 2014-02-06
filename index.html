@@ -8,7 +8,7 @@
 </head>
 <body style="text-align: center;">
 
-    <h2>Enter passcode</h2>
+    <h2>Enter passcode (numbers only : optional)</h2>
 
     <div class="passcode">
         <input type="text" class="text-input input-passcode" maxlength="1" autofocus>
@@ -40,6 +40,8 @@
         $(function(){
 
             $('.passcode').passcodeInput({
+
+                numbersOnly: true,
 
                 onComplete: function(value){
                     
