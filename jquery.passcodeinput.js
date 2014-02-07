@@ -115,7 +115,8 @@
 				isNaN(String.fromCharCode(event.which))
 				){				
 
-				this.value = ''
+				//if(typeof event.target.value == 'string') this.value = ''
+				
 
 				event.preventDefault()
 
